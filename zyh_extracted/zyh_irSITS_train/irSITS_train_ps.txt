@@ -1,0 +1,23 @@
+先用timeseries_pre_data生成训练集、验证集
+
+1-txttocsv：
+把txt转为csv，特征值1-doy1，特征值2-doy1，特征值1-doy2，特征值2-doy2……
+没有的特征值填为空值
+得到train.csv
+
+2-datasets_statistic：
+统计每个doy下特征的数量，输出一个按照特征值数量由多到少的doy列表
+
+3-datasets_deldoy：
+输入要删除的doy列表，对应删除该doy的特征值列，保证特征值不会缺少很多
+将特征值1全放一起，特征值2全放一起
+把格网号和行列号分开存储
+得到train_modified.csv
+
+4-datasets_fill：
+将时序中缺失的值通过插值进行补全，保证各个像素的时序长度完全一致
+得到train_modified_interpolated.csv（该表格可用于粘贴预测label）
+
+5-csv to tsv：
+删除行列标题，只保留时序数据和label（放在最后），同时转换为tsv格式
+
